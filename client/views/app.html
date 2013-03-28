@@ -1,0 +1,210 @@
+<!-- 
+	Dustin Brown:
+	This is the default view/entrypoint for the main application.  The application template is the default template that is rendered when your application starts.
+ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<!-- 
+	SocketStream tag to bind up the app to the node server we have powering our backend 
+-->
+    <SocketStream>
+    <meta charset="utf-8"/>
+<!-- 
+	MOBILE READY, if your not building for mobile you are building for a dead platform
+-->
+ 	<meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=1">
+    <title>EmberJs Realtime Boilerplate</title>
+  </head>
+<!-- 
+	THE BODY IS WHERE THE ACTION IS AT.  If you do not provide an outlet and try to append views they will appear in the body by default.  DONT DO THIS!  It takes a little 
+	bit to get the hang of the router BUT you shouldnt be applying changes directly to the DOM if necessary, let Ember do what it's supposed to by leveraging the technology
+	they have in place.
+	
+	NOTE!!!!! If you are leaving your TEMPLATES in HTML you must specify a <SCRIPT> tag like you normally would for Handlebar templates with the exception
+		
+		WE DONT NEED TO SPECIFY A TEMPLATE NAME.
+		FOR THE APPLICATION TEMPLATE
+		<SCRIPT type="text/x-handlebars"> is what the default application needs
+		FOR ALL OTHERS SPECIFY A data-template-name that EMBER will compile to the TEMPLATES and accessible via the header name.
+		<SCRIPT type="text/x-handlebars"  data-template-name="header">
+			
+		If you are not leaving your templates in HTML and instead are storing them as .hbs (handlebars) then ember will reference them by the filename.
+-->
+<body>
+<SCRIPT type="text/x-handlebars">
+		<header>{{render header}}</header>
+		<!-- 
+			This is the APPLICATION outlet!  The content of the outlet will be dynamically rendeared based on the state of the application as controlled by the ROUTER.
+			This is not the only use for outlets either, you can assign custom names to the outlets as desired, like for a header outlet we could have
+			{{outlet header}}
+			or a footer
+			{{outlet footer}}
+			
+			Then you could dynamically assign what gets rendeared and what objects control it at runtime, easily done in the ROUTER code that handles plugging up the outlets
+			with magical DOM madness.
+			
+			We will come back and add some other outlets as the development cycle demands it but for now this will suffice.
+		-->
+		<div>{{outlet sideBar}}</div>
+		<div>{{outlet}}</div>
+		<footer>{{outlet "footer"}}</footer>
+</SCRIPT>
+<script type="text/x-handlebars" data-template-name="modal_popper">
+  <div class="modal">
+    {{yield}}
+  </div>
+</script>
+<script type="text/x-handlebars" data-template-name="my_modal_layout">
+  <div class='modal'>
+    {{yield}}
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="my_scroll_listing">
+<div class="menyscroll">  
+	<div class="menyscrollouter">
+		<div class="menyscrollinner">	
+	    	<ul class="menyscrollmenu">
+              {{yield}}
+            </ul>
+       </div>
+	</div>
+</div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="my_page_view">
+	<div class="row-fluid">
+		<div class="span12">				
+			{{yield}}
+		</div>		            
+	</div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="my_span12_row_view">
+	<div class="row-fluid span12">
+		<div class="well">
+			<div class="container-fluid">
+				<div class="row-fluid span12">
+					{{yield}}
+				</div>
+			</div>
+		</div>	
+	</div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="thumbnails_view">
+	<ul class="thumbnails">	
+		{{yield}}			
+	</ul>
+</script>
+
+
+<script type="text/x-handlebars" data-template-name="thumbnail_view">
+	<li class='span4'>
+		<div class='thumbnail'>
+			{{yield}}
+		</div>
+	</li>
+</script>
+
+<script type="text/x-handlebars" data-template-name="control_group_view">
+	<div class='control-group'>
+		{{yield}}	
+	</div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="right_thumbs">
+	<div class='row offset1 span10'>
+		<div class='pagination-centered'>
+			<div class='rightthumbheight'>
+				{{yield}}
+			</div>
+		</div>	
+	</div>
+</script>
+
+
+<script type="text/x-handlebars" data-template-name="iframe">
+	<div class='span8'>		
+		<div id="hidenavouter"> 
+			<iframe id="hidenavinner" src="{{yield}}" width="99%" height="600"></iframe>
+		</div>
+	</div>
+</script>
+
+
+<script type="text/x-handlebars" data-template-name="pagination_center">
+	<div class='row pagination-centered'>
+		{{yield}}
+	</div>
+</script>
+
+<!-- lightbox directions -->
+<!-- 1. Insert your link -->
+<!-- <a href="#Lightbox" role="button" class="btn" data-toggle="modal">Launch demo Lightbox</a> -->
+
+<!-- 2. Add your view scaffold -->
+<!--
+The view scaffold
+{{#view App.LightboxView}}
+	{{#view App.LightboxHeaderView}}Header yeild will be here{{/view}}
+	{{#view App.LightboxBodyView}}Body yield will be here, also footer is included with the body{{/view}}	
+{{/view}}
+
+"{{#view App.LightboxView}}"+
+	"{{#view App.LightboxHeaderView}}Header yeild will be here{{/view}}"+
+	"{{#view App.LightboxBodyView}}Body yield will be here, also footer is included with the body{{/view}}"+	
+"{{/view}}"+
+
+-->
+<!-- lightbox directions -->
+<!-- lightbox directions -->
+
+
+<script type="text/x-handlebars" data-template-name="lightbox">
+	<div id="Lightbox" data-backdrop="static" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="LightboxLabel" aria-hidden="true">
+		{{yield}}
+	</div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="lightboxheader">
+	 <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+	    <h3 id="LightboxLabel">{{yield}}</h3>
+	  </div>	
+</script>
+
+<script type="text/x-handlebars" data-template-name="lightboxbody">
+	<div class="modal-body">
+		  {{yield}}			
+	  </div>
+	  <div class="modal-footer">
+	    <a class='btn btn-dark' href='javascript;:' {{action cancel content}} data-dismiss="modal">Close</a>
+	    <button class='btn btn-success' type='submit' {{action submit content}} data-dismiss="modal">Save</button>
+	  </div>
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
