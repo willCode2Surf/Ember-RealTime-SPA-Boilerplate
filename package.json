@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "main": "app.js",
   "author": "Dustin Brown; @WillCode2Surf, http://willcode2surf.com",
-  "homepage": "",
+  "homepage": "https://github.com/willCode2Surf/Ember-RealTime-SPA-Boilerplate",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/willCode2Surf/Ember-RealTime-SPA-Boilerplate.git"
   },
   "scripts": {
     "start": "node app",
